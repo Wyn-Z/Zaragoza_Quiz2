@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class PowerLevelSorter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] powerLevels = new int[10];
+        int sumEven = 0, sumOdd = 0;
+
+        System.out.println("Enter 10 power levels of creatures:");
+        for (int i = 0; i < 10; i++) {
+            powerLevels[i] = scanner.nextInt();
+        }
+
+        // Bubble Sort for Ascending Order
+        int[] ascending = powerLevels.clone();
+        for (int i = 0; i < ascending.length - 1; i++) {
+            for (int j = 0; j < ascending.length - 1 - i; j++) {
+                if (ascending[j] > ascending[j + 1]) {
+                    int temp = ascending[j];
+                    ascending[j] = ascending[j + 1];
+                    ascending[j + 1] = temp;
+                }
+            }
+        }
+
+        // Selection Sort for Descending Order
+        int[] descending = powerLevels.clone();
+        for (int i = 0; i < descending.length - 1; i++) {
+            int maxIndex = i;
+            for (int j = i + 1; j < descending.length; j++) {
+                if (descending[j] > descending[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+            int temp = descending[maxIndex];
+            descending[maxIndex] = descending[i];
+            descending[i] = temp;
+        }
+
+        // Analysis
+        int min = ascending[0];
+        int max = ascending[ascending.length - 1];
+        for (int num : powerLevels) {
+            if (num % 2 == 0) {
+                sumEven += num;
+            } else {
+                sumOdd += num;
+            }
+        }
+
+        // Output
+        System.out.println("\nBubble Sort (Ascending):");
+        for (int num : ascending) {
+            System.out.print(num + " ");
+        }
+
+        System.out.println("\n\nSelection Sort (Descending):");
+        for (int num : descending) {
+            System.out.print(num + " ");
+        }
+
+        System.out.println("\n\nAnalysis:");
+        System.out.println("Sum of Even Numbers: " + sumEven);
+        System.out.println("Sum of Odd Numbers: " + sumOdd);
+        System.out.println("Minimum Power Level: " + min);
+        System.out.println("Maximum Power Level: " + max);
+    }
+}
